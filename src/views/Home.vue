@@ -20,7 +20,7 @@
       <div class="card-contents">
         <a :href="item.link" target="_blank" class="card" v-for="(item, idx) in items" :key="idx">
           <div>
-            <img :src="item.image" alt />
+            <img :src="item.image || 'https://ssl.pstatic.net/static/movie/2012/06/dft_img203x290.png'" alt="item.title" />
           </div>
           <div>
             <strong class="title" v-html="item.title"></strong>
@@ -52,7 +52,6 @@ export default {
       result: null
     };
   },
-  components: {},
   methods: {
     handleSubmit() {
       this.getMovie();
@@ -86,20 +85,6 @@ export default {
     },
     items() {
       this.loading = this.items.length < 0;
-    }
-  },
-  computed: {
-    fullName: {
-      // getter
-      get() {
-        return `${this.firstName} ${this.lastName}`;
-      },
-      // setter
-      set(newValue) {
-        const [firstName, lastName] = newValue.split(' ');
-        this.firstName = firstName;
-        this.lastName = lastName;
-      }
     }
   }
 };
@@ -162,6 +147,7 @@ export default {
   }
   img {
     max-width: 100%;
+    max-height: 158px;
   }
   .sub-title {
     font-size: 14px;
