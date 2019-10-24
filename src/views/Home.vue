@@ -16,7 +16,7 @@
       </form>
     </div>
     <div>
-      <div v-if="result !== null" class="result">검색결과 {{result}}건</div>
+      <div v-if="display !== null" class="result">검색결과 {{display}}건</div>
       <div class="card-contents">
         <a :href="item.link" target="_blank" class="card" v-for="(item, idx) in items" :key="idx">
           <div>
@@ -51,7 +51,7 @@ export default {
       disabled: true,
       loading: false,
       items: [],
-      result: null
+      display: null
     };
   },
   methods: {
@@ -75,7 +75,7 @@ export default {
       if (statusText === 'OK') {
         Object.assign(this.$data, {
           items,
-          result: display,
+          display,
           loading: false
         });
       }
