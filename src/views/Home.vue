@@ -66,8 +66,8 @@ export default {
         `/v1/search/movie.json?query=${this.movie}&display=20&start=1`,
         {
           headers: {
-            'X-Naver-Client-Id': 'dksWTjHPKfSQxim9fFz_',
-            'X-Naver-Client-Secret': 'vdNQ6splri'
+            'X-Naver-Client-Id': process.env.VUE_APP_OPTIONS_CLIENT_ID,
+            'X-Naver-Client-Secret': process.env.VUE_APP_OPTIONS_CLIENT_SECRET
           }
         }
       );
