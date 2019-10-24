@@ -5,7 +5,7 @@
     <div class="form">
       <form @submit.prevent="handleSubmit">
         <div class="column">
-          <input type="text" class="input-text" v-model="movie" placeholder="영화명" />
+          <input @input="typing" type="text" class="input-text" v-model="movie" placeholder="영화명" />
         </div>
         <button type="submit" class="button" :disabled="loading || disabled">
           <span v-if="!loading">검색</span>
@@ -20,7 +20,10 @@
       <div class="card-contents">
         <a :href="item.link" target="_blank" class="card" v-for="(item, idx) in items" :key="idx">
           <div>
-            <img :src="item.image || 'https://ssl.pstatic.net/static/movie/2012/06/dft_img203x290.png'" alt="item.title" />
+            <img
+              :src="item.image || 'https://ssl.pstatic.net/static/movie/2012/06/dft_img203x290.png'"
+              alt="item.title"
+            />
           </div>
           <div>
             <strong class="title" v-html="item.title"></strong>
@@ -38,7 +41,6 @@
 </template>
 
 <script>
-// import _ from 'lodash';
 import axios from 'axios';
 
 export default {
@@ -70,19 +72,25 @@ export default {
           }
         }
       );
-      this.$data.items = items;
       if (statusText === 'OK') {
-        this.items = items;
-        this.loading = false;
-        this.result = display;
+        Object.assign(this.$data, {
+          items,
+          result: display,
+          loading: false
+        });
       }
+    },
+    typing(event) {
+      const {
+        target: { value: movie }
+      } = event;
+      Object.assign(this.$data, {
+        movie,
+        disabled: movie === ''
+      });
     }
   },
   watch: {
-    movie(text) {
-      this.watchResult = '입력중...';
-      this.disabled = !text.length > 0;
-    },
     items() {
       this.loading = this.items.length < 0;
     }
