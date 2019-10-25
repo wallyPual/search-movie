@@ -60,18 +60,12 @@ export default {
     },
     async getMovie() {
       this.loading = true;
+
       const {
         statusText,
         data: { items, display }
-      } = await axios.get(
-        `/v1/search/movie.json?query=${this.movie}&display=20&start=1`,
-        {
-          headers: {
-            'X-Naver-Client-Id': process.env.VUE_APP_OPTIONS_CLIENT_ID,
-            'X-Naver-Client-Secret': process.env.VUE_APP_OPTIONS_CLIENT_SECRET
-          }
-        }
-      );
+      } = await axios.get(`/search/${this.movie}`);
+
       if (statusText === 'OK') {
         Object.assign(this.$data, {
           items,
